@@ -70,7 +70,7 @@ class ManipulateEnv(hand_env.HandEnv):
         self.ignore_z_target_rotation = ignore_z_target_rotation
 
         assert self.target_position in ['ignore', 'fixed', 'random']
-        assert self.target_rotation in ['ignore', 'fixed', 'xyz', 'z', 'parallel']
+        assert self.target_rotation in ['ignore', 'fixed', 'xyz', 'z', 'y', 'x', 'parallel']
         initial_qpos = initial_qpos or {}
 
         hand_env.HandEnv.__init__(
@@ -160,6 +160,16 @@ class ManipulateEnv(hand_env.HandEnv):
                 axis = np.array([0., 0., 1.])
                 offset_quat = quat_from_angle_and_axis(angle, axis)
                 initial_quat = rotations.quat_mul(initial_quat, offset_quat)
+            elif self.target_rotation == 'y':
+                angle = self.np_random.uniform(-np.pi, np.pi)
+                axis = np.array([0., 1., 0.])
+                offset_quat = quat_from_angle_and_axis(angle, axis)
+                initial_quat = rotations.quat_mul(initial_quat, offset_quat)
+            elif self.target_rotation == 'x':
+                angle = self.np_random.uniform(-np.pi, np.pi)
+                axis = np.array([1., 0., 0.])
+                offset_quat = quat_from_angle_and_axis(angle, axis)
+                initial_quat = rotations.quat_mul(initial_quat, offset_quat)
             elif self.target_rotation == 'parallel':
                 angle = self.np_random.uniform(-np.pi, np.pi)
                 axis = np.array([0., 0., 1.])
@@ -222,6 +232,14 @@ class ManipulateEnv(hand_env.HandEnv):
         if self.target_rotation == 'z':
             angle = self.np_random.uniform(-np.pi, np.pi)
             axis = np.array([0., 0., 1.])
+            target_quat = quat_from_angle_and_axis(angle, axis)
+        elif self.target_rotation == 'y':
+            angle = self.np_random.uniform(-np.pi, np.pi)
+            axis = np.array([0., 1., 0.])
+            target_quat = quat_from_angle_and_axis(angle, axis)
+        elif self.target_rotation == 'x':
+            angle = self.np_random.uniform(-np.pi, np.pi)
+            axis = np.array([1., 0., 0.])
             target_quat = quat_from_angle_and_axis(angle, axis)
         elif self.target_rotation == 'parallel':
             angle = self.np_random.uniform(-np.pi, np.pi)
