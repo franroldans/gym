@@ -524,12 +524,6 @@ for reward_type in ['sparse', 'dense']:
         kwargs=_merge({'target_position': 'ignore', 'target_rotation': 'z', 'touch_get_obs': 'boolean'}, kwargs),
         max_episode_steps=100,
     )
-    register(
-        id='HandManipulateBlockRotateZTouchSensors{}-v0'.format(suffix),
-        entry_point='gym.envs.robotics:HandBlockTouchSensorsEnv',
-        kwargs=_merge({'target_position': 'ignore', 'target_rotation': 'z', 'touch_get_obs': 'boolean'}, kwargs),
-        max_episode_steps=100,
-    )
 
     register(
         id='HandManipulateBlockRotateZTouchSensors{}-v1'.format(suffix),
